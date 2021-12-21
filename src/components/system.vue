@@ -11,25 +11,25 @@
 
 <script>
 import axios from 'axios'
-
-const URL = 'https://api.dxcontest.sora210.dev/'
+const URL = 'https://api.dxcontest.sora210.dev'
 
 export default {
-    beforeRouterEnter(to, from, next){
-        next((vm) => {
-            vm.load()
-        })
+    data: function() {
+        return {
+            status: 'none',
+            version: 'none'
+        }
+    },
+    mounted() {
+        this.load()
     },
     methods: {
-        data: function() {
-            return {
-                status: 'none',
-                version: 'none'
-            }
-        },
-        load(){
-            axios.get(URL + '/version', { headers: { Authorization: KEY } })
-            .then(response => { this.status = response })
+        load() {
+            axios.get(URL + '/health', { headers: { Authorization: process.env.VUE_APP_APIKEY } })
+            .then(response => { this.status = response.data.status })
+            .catch((error) => { console.log(error) })
+            axios.get(URL + '/version', { headers: { Authorization: process.env.VUE_APP_APIKEY } })
+            .then(response => { this.version = response.data.message })
             .catch((error) => { console.log(error) })
         }
     }
