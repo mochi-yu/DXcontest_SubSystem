@@ -16,8 +16,8 @@ const URL = 'https://api.dxcontest.sora210.dev'
 export default {
     data: function() {
         return {
-            status: 'none',
-            version: 'none'
+            status: 'loading...',
+            version: 'loading...'
         }
     },
     mounted() {
@@ -25,10 +25,10 @@ export default {
     },
     methods: {
         load() {
-            axios.get(URL + '/health', { headers: { Authorization: process.env.VUE_APP_APIKEY } })
+            axios.get(URL + '/health', { headers: { Authorization: process.env.API_KEY } })
             .then(response => { this.status = response.data.status })
             .catch((error) => { console.log(error) })
-            axios.get(URL + '/version', { headers: { Authorization: process.env.VUE_APP_APIKEY } })
+            axios.get(URL + '/version', { headers: { Authorization: process.env.API_KEY } })
             .then(response => { this.version = response.data.message })
             .catch((error) => { console.log(error) })
         }
