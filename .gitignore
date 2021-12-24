@@ -15,4 +15,6 @@ selenium-debug.log
 *.ntvs*
 *.njsproj
 *.sln
-.env.local
+
+# 環境変数
+*.env.js
